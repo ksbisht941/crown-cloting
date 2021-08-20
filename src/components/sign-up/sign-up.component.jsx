@@ -30,20 +30,22 @@ class SignUp extends React.Component {
         }
 
         try {
-            const { user } = await auth.createUserWithEmailAndPassword();
-
+            const { user } = await auth.createUserWithEmailAndPassword(
+              email,
+              password
+            );
+      
             await createUserProfileDocument(user, { displayName });
-
+      
             this.setState({
-                displayName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
+              displayName: '',
+              email: '',
+              password: '',
+              confirmPassword: ''
             });
-
-        } catch (error) {
-            console.log(error);
-        }
+          } catch (error) {
+            console.error(error);
+          }
     };
 
     handleChange = event => {
@@ -68,7 +70,7 @@ class SignUp extends React.Component {
                     <FormInput type='password' name='password' value={password}
                         onChange={this.handleChange} label='Password' required />
 
-                    <FormInput type='password' name='password' value={confirmPassword}
+                    <FormInput type='password' name='confirmPassword' value={confirmPassword}
                         onChange={this.handleChange} label='Confirm Password' required />
 
                     <CustomButton type='submit'>SIGN UP</CustomButton>
